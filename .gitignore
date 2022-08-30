@@ -1,0 +1,5 @@
+.git
+composer.json
+*.iml
+*.idea
+*.bak
