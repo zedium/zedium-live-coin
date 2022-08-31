@@ -8,6 +8,7 @@
     use Zedium\Classes\PostType;
     use Zedium\Classes\CustomDB;
     use Zedium\Classes\MetaBoxes;
+    use Zedium\Classes\Dashboard;
 
     if( !file_exists(__DIR__ . '/vendor/autoload.php') )
         die('autoload.php not found');
@@ -34,3 +35,5 @@
 
     }
 
+
+    new Dashboard();

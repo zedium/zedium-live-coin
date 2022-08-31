@@ -51,9 +51,9 @@ class CustomDB
         $sql = "CREATE TABLE `{$wpdb->base_prefix}" . ZEDIUM_TABLE_NAME . "` (
                   id INT NOT NULL AUTO_INCREMENT,
                   post_id INT NOT NULL,
-                  short_name varchar(50),
+                  short_name varchar(10),
                   usd_price varchar(20) NOT NULL,
-                  market_cap bigint(20) NOT NULL,
+                  market_cap varchar(20) NOT NULL,
                   last_update datetime NOT NULL,
                   PRIMARY KEY  (id)
                 ) $charset_collate;";
@@ -89,6 +89,15 @@ class CustomDB
         return $wpdb->get_row($sql_query);
     }
 
+
+    public function getCoinList(){
+        global $wpdb;
+
+        $sql_query = 'SELECT * FROM ' . $wpdb->base_prefix . ZEDIUM_TABLE_NAME ;
+
+        return $wpdb->get_results($sql_query, ARRAY_A);
+    }
+
     public function insertPostMeta($post_id, $short_name, $usd_price, $market_cap, $last_update )
     {
         global $wpdb;
@@ -97,7 +106,7 @@ class CustomDB
             'INSERT INTO ' .
             $wpdb->base_prefix . ZEDIUM_TABLE_NAME .
             ' (`post_id`, `short_name`, `usd_price`, `market_cap`, `last_update` ) ' .
-            ' VALUES (%d, %s, %d, %d, %s)', [$post_id, $short_name, $usd_price, $market_cap, $last_update]
+            ' VALUES (%d, %s, %s, %s, %s)', [$post_id, $short_name, $usd_price, $market_cap, $last_update]
         );
 
         $wpdb->query($sql_query);
@@ -110,7 +119,7 @@ class CustomDB
         $sql_query = $wpdb->prepare(
             'UPDATE  `' .
             $wpdb->base_prefix . ZEDIUM_TABLE_NAME .
-            "` SET `short_name`='%s', `usd_price`='%d', `market_cap`='%d', `last_update`='%s' 
+            "` SET `short_name`='%s', `usd_price`='%s', `market_cap`='%s', `last_update`='%s' 
             WHERE `post_id`='%s'" ,
             [$short_name, $usd_price, $market_cap, $last_update, $post_id]
         );
