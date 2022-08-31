@@ -6,12 +6,20 @@
  * Author URI: https://github.com/zedium/
  */
 use Zedium\Classes\PostType;
-
+use Zedium\Classes\CustomDB;
 if( !file_exists(__DIR__ . '/vendor/autoload.php') )
     die('autoload.php not found');
 
-const ZEDIUM_TEXT_DOMAIN = 'zedium-text-domain';
 
 require_once __DIR__ . '/vendor/autoload.php';
-
+require_once __DIR__ . '/config.php';
 new PostType();
+
+
+register_activation_hook(__FILE__, 'zedium_register_activation_hook_callback');
+
+function zedium_register_activation_hook_callback(){
+
+    new CustomDB();
+
+}

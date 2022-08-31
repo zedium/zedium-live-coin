@@ -10,7 +10,8 @@ class PostType
 
     public function registerPostType(){
 
-        register_post_type('coin',
+        register_post_type(
+            ZEDIUM_POST_TYPE_NAME,
             array(
                 'labels'      => array(
                     'name'          => __('Coins', ZEDIUM_TEXT_DOMAIN),
@@ -21,7 +22,7 @@ class PostType
                 'rewrite'     => array( 'slug' => 'coins' ),
                 'menu_position'=>5,
                 'map_meta_cap'=>true,
-                supports=>['title']
+                'supports'=>['title']
             )
         );
 
