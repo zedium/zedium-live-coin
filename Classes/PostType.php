@@ -4,7 +4,10 @@ namespace Zedium\Classes;
 
 class PostType
 {
-    function __construct(){
+    private $metaBoxes;
+
+    function __construct($metaBoxes){
+        $this->metaBoxes = $metaBoxes;
         add_action('init', [$this, 'registerPostType']);
     }
 
@@ -25,6 +28,8 @@ class PostType
                 'supports'=>['title']
             )
         );
+
+        $this->metaBoxes->render();
 
     }
 }
