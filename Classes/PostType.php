@@ -6,6 +6,9 @@ class PostType
 {
     private $metaBoxes;
 
+    /*
+     * Inject metabox object to render it when cutome post type is registered
+     */
     function __construct($metaBoxes){
         $this->metaBoxes = $metaBoxes;
         add_action('init', [$this, 'registerPostType']);

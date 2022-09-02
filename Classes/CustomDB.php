@@ -1,17 +1,32 @@
 <?php
 
 namespace Zedium\Classes;
-
+/**
+ * This class is responsible for custom database table instruction
+ * Such as create, update, delete,...
+ * when plugin activates, class checks `coin_info` table is exists or not
+ * if there is no table it will create table
+ */
 class CustomDB
 {
-    private static $instance = null;
-    public $hello = 'Hi';
-    public function __construct(){
 
+    /**
+     * @var null current instance of database class
+     */
+    private static $instance = null;
+
+
+    public function __construct(){
+        //Default constructor
     }
+
+
+    /**
+     * Get the database instance
+     * @return CustomDB|null
+     */
     public static function getInstance()
     {
-
 
         if ( !self::$instance ) {
             self::$instance = new CustomDB();
@@ -41,6 +56,11 @@ class CustomDB
 
     }
 
+
+    /**
+     * Create database table
+     * @return void
+     */
     private function createTable()
     {
 
@@ -63,6 +83,13 @@ class CustomDB
 
     }
 
+
+    /**
+     * Return true if post's meta box exists
+     * this will be used for insert new record to table or update it
+     * @param $postID
+     * @return bool
+     */
     public function isPostMetaExists($postID)
     {
 
@@ -77,6 +104,12 @@ class CustomDB
         return !empty($wpdb->get_row($sql_query));
     }
 
+
+    /**
+     * find metabox record by post id
+     * @param $postID
+     * @return array|object|\stdClass|void|null
+     */
     public function getMetaBoxByPostID($postID){
         global $wpdb;
 
@@ -100,6 +133,12 @@ class CustomDB
 
         return $wpdb->get_row($sql_query);
     }
+
+
+    /**
+     * Get all coins list
+     * @return array|object|\stdClass[]|null
+     */
     public function getCoinList(){
         global $wpdb;
 
@@ -108,6 +147,17 @@ class CustomDB
         return $wpdb->get_results($sql_query, ARRAY_A);
     }
 
+
+    /**
+     *
+     * Insert new metabox record to custom post type
+     * @param $post_id
+     * @param $short_name
+     * @param $usd_price
+     * @param $market_cap
+     * @param $last_update
+     * @return void
+     */
     public function insertPostMeta($post_id, $short_name, $usd_price, $market_cap, $last_update )
     {
         global $wpdb;
@@ -122,6 +172,18 @@ class CustomDB
         $wpdb->query($sql_query);
     }
 
+
+    /**
+     *
+     * Update existing metabox record by it's post id
+     *
+     * @param $post_id
+     * @param $short_name
+     * @param $usd_price
+     * @param $market_cap
+     * @param $last_update
+     * @return void
+     */
     public function updatePostMeta($post_id, $short_name, $usd_price, $market_cap, $last_update )
     {
         global $wpdb;
@@ -137,7 +199,15 @@ class CustomDB
         $wpdb->query($sql_query);
     }
 
-    public function updatePostMetaByShortName( $short_name, $usd_price, $market_cap, $last_update )
+    /**
+     * Update post metabox by it's short name (BTC)
+     * @param $short_name
+     * @param $usd_price
+     * @param $market_cap
+     * @param $last_update
+     * @return void
+     */
+    public function updatePostMetaByShortName($short_name, $usd_price, $market_cap, $last_update )
     {
         global $wpdb;
 
@@ -152,6 +222,11 @@ class CustomDB
         $wpdb->query($sql_query);
     }
 
+
+    /**
+     * Drop the table when plugin is deleted
+     * @return void
+     */
     public function dropTable()
     {
         global $wpdb;

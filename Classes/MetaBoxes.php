@@ -2,16 +2,24 @@
 
 namespace Zedium\Classes;
 
+/**
+ *This class is responsible for adding custom metabox at Coin custom post type
+ * It wil render and save user entered data into custom `coin_info` table
+ */
 class MetaBoxes
 {
     private CustomDB $dbContext;
 
     public function __construct(CustomDB $dbContext){
+
         $this->dbContext = $dbContext;
+
     }
     public function render(){
+
         add_action('add_meta_boxes', [$this, 'initMetaBoxes']);
         add_action('save_post', [$this, 'savePostAction']);
+
     }
     public function initMetaBoxes(){
 
@@ -26,8 +34,19 @@ class MetaBoxes
 
     }
 
+
+    /**
+     * Render the Metaboxes and generates html elements
+     * @return void
+     */
     public function renderMetaBoxesCallback(){
+
         $postID = sanitize_text_field( $_GET['post'] ?? 0 );
+
+        /*
+         * Get metabox data from `coin_info` table that belong to current post
+         * The data will be shown as html default values.
+         */
 
         $result = $this->dbContext->getMetaBoxByPostID($postID);
 
@@ -63,12 +82,21 @@ class MetaBoxes
         <?php
     }
 
+    /**
+     * This method will be run when post saved
+     * Get current user entered values
+     * Sanitize them and save to database
+     * If record is exist then update it
+     *
+     * @param $postID current post id
+     * @return mixed|void
+     */
     public function savePostAction($postID){
 
         $short_name = '';
         $usd_price = '';
         $market_cap = '';
-        $last_update = date(DATE_TIME_FORMAT);
+        $last_update = date(DATE_TIME_FORMAT );
 
         if( !isset($_POST['zedium_nonce_field']) )
             return $postID;
@@ -95,10 +123,14 @@ class MetaBoxes
         }*/
 
         if( !$this->dbContext->isPostMetaExists($postID) ){
+
             $this->dbContext->insertPostMeta($postID, $short_name, $usd_price, $market_cap, $last_update);
+
         }
         else{
+
             $this->dbContext->updatePostMeta($postID, $short_name, $usd_price, $market_cap, $last_update);
+
         }
 
 

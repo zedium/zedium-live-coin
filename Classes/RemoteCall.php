@@ -2,18 +2,40 @@
 
 namespace Zedium\Classes;
 
+/**
+ * This class calls a remote API
+ * It will be done through CURL request
+ */
 class RemoteCall
 {
+
+    /**
+     * @var string endpoint url to API
+     */
     private $endpoint;
+
+    /**
+     * @var array
+     */
     private $parameters;
+    /**
+     * @var string[]
+     */
     private $headers;
+    /**
+     * @var array
+     */
     private $coins = [];
+
+
+    /**
+     *  Instantiate the parameteres of RemoteCall
+     */
     public function __construct(){
 
         $this->endpoint = ZEDIUM_API_END_POINT;
 
         $this->parameters = [
-
             'convert' => 'USD',
             'symbol'=> implode(',', $this->getCoinsFromDB())
         ];
@@ -22,9 +44,16 @@ class RemoteCall
             'Accepts: application/json',
             'X-CMC_PRO_API_KEY: ' . COIN_MARKET_CAP_API_TOKEN
         ];
+
     }
 
+    /**
+     * Do a request to remote API
+     * Parse the data and return it
+     * @return array|void
+     */
     public function doRequest(){
+
         $qs = http_build_query($this->parameters);
         $request = "{$this->endpoint}?{$qs}";
 
@@ -44,16 +73,39 @@ class RemoteCall
         return $this->parseCoinData($result);
     }
 
+
+    /**
+     * Get coins short names to add them to api request
+     * return will be something like [BTC,ETH,ADA,...]
+     * @return array
+     */
     private function getCoinsFromDB(){
+
         $database = CustomDB::getInstance();
         $results = $database->getCoinList();
         $this->coins = [];
+
         foreach($results as $result){
             $this->coins[] = $result['short_name'];
         }
+
         return $this->coins;
     }
 
+
+    /**
+     * @param $json JSON that has returned from API
+     * This method parses the json and convert it to array of php stdClass
+     *
+     * stdClass{
+     *      ->short_name
+     *      ->usd_price
+     *      ->market_cap
+     *      ->last_update
+     * }
+     *
+     * @return array|void
+     */
     private function parseCoinData($json){
 
         if(empty($json->data))
