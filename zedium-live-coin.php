@@ -26,7 +26,7 @@
         echo '<div class="notice notice-warning is-dismissible">
               <p><h3>Zedium Live Coin</h3> <strong>api.key </strong> not found,
                please signup in <strong>Coin Market Cap</strong> website and get <strong>API Token</strong>.
-               Then add it in <strong>config.php</strong> file
+               Then add it in <strong>api.key</strong> file
               </p></div>';
     }
 
