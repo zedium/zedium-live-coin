@@ -89,7 +89,17 @@ class CustomDB
         return $wpdb->get_row($sql_query);
     }
 
+    public function getMetaBoxByPostShortName($shortName){
+        global $wpdb;
 
+        $sql_query = $wpdb->prepare(
+            'SELECT * FROM ' .
+            $wpdb->base_prefix . ZEDIUM_TABLE_NAME .
+            " WHERE short_name = '%s'",
+            $shortName);
+
+        return $wpdb->get_row($sql_query);
+    }
     public function getCoinList(){
         global $wpdb;
 
@@ -127,6 +137,20 @@ class CustomDB
         $wpdb->query($sql_query);
     }
 
+    public function updatePostMetaByShortName( $short_name, $usd_price, $market_cap, $last_update )
+    {
+        global $wpdb;
+
+        $sql_query = $wpdb->prepare(
+            'UPDATE  `' .
+            $wpdb->base_prefix . ZEDIUM_TABLE_NAME .
+            "` SET `short_name`='%s', `usd_price`='%s', `market_cap`='%s', `last_update`='%s' 
+            WHERE `short_name`='%s'" ,
+            [$short_name, $usd_price, $market_cap, $last_update, $short_name]
+        );
+
+        $wpdb->query($sql_query);
+    }
 
     public function dropTable()
     {
