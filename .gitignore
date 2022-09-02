@@ -3,3 +3,4 @@ composer.json
 *.iml
 *.idea
 *.bak
+api.key

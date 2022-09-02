@@ -56,11 +56,20 @@ class RemoteCall
 
     private function parseCoinData($json){
 
+        if(empty($json->data))
+            return;
+
         $data = $json->data;
+
         $structured_coins = [];
+
         foreach($this->coins as $coin){
             if( isset($data->{$coin})){
                 $coinObject = $data->{$coin};
+
+                if(empty($coinObject))
+                    continue;
+
                 $stdClass = new \stdClass();
                 $stdClass->short_name = $coin;
                 $stdClass->usd_price = $coinObject[0]->quote->USD->price;
