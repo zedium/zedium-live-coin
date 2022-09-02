@@ -10,7 +10,7 @@ class RemoteCall
     private $coins = [];
     public function __construct(){
 
-        $this->endpoint = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
+        $this->endpoint = ZEDIUM_API_END_POINT;
 
         $this->parameters = [
 
