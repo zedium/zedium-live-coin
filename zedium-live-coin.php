@@ -11,6 +11,7 @@
     use Zedium\Classes\Dashboard;
     use Zedium\Classes\RemoteCall;
     use Zedium\Classes\Cronjob;
+    use Zedium\Classes\AdminMenu;
 
     if( !file_exists(__DIR__ . '/vendor/autoload.php') )
         die('autoload.php not found');
@@ -38,3 +39,4 @@
 
     new Dashboard();
     new Cronjob();
+    new AdminMenu();
