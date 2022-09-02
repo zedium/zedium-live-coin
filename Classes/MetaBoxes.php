@@ -79,7 +79,7 @@ class MetaBoxes
             return $postID;
 
         if( isset($_POST['short_name']) ){
-            $short_name = sanitize_text_field( $_POST['short_name'] );
+            $short_name = sanitize_text_field( strtoupper( $_POST['short_name'] ));
         }
 
         if( isset($_POST['usd_price']) ){

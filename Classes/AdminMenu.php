@@ -11,7 +11,7 @@ class AdminMenu
     public function registerAdminMenu(){
         add_menu_page(
             'zedium-admin-page',
-            'Coin Options',
+            'Coin List',
             'manage_options',
             'zedium-live-coin',
             [$this, 'menuRenderCallback']
