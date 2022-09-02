@@ -21,6 +21,6 @@ class AdminMenu
     public function menuRenderCallback(){
         echo '<div class="wrap">';
         (new Dashboard())->zedium_dashboard_widget_render_callback();
-        echo '/<div>';
+        echo '</div>';
     }
 }

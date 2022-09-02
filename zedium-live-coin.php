@@ -16,10 +16,23 @@
     if( !file_exists(__DIR__ . '/vendor/autoload.php') )
         die('autoload.php not found');
 
+    if( !file_exists(dirname(__FILE__) . '/api.key')){
+
+        add_action( 'admin_notices', 'zedium_api_admin_notice_warn' );
+
+    }
+
+    function zedium_api_admin_notice_warn() {
+        echo '<div class="notice notice-warning is-dismissible">
+              <p><h3>Zedium Live Coin</h3> <strong>api.key </strong> not found,
+               please signup in <strong>Coin Market Cap</strong> website and get <strong>API Token</strong>.
+               Then add it in <strong>config.php</strong> file
+              </p></div>';
+    }
+
 
     require_once __DIR__ . '/vendor/autoload.php';
     require_once __DIR__ . '/config.php';
-
 
 
 

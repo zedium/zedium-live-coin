@@ -34,6 +34,8 @@ class Cronjob
         $database = CustomDB::getInstance();
         $remote_call = new RemoteCall();
         $results = $remote_call->doRequest();
+        if(empty($results))
+            return;
         foreach ($results as $result ){
             $database->updatePostMetaByShortName(
                 $result->short_name,
