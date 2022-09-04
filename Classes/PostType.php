@@ -2,6 +2,8 @@
 
 namespace Zedium\Classes;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 class PostType
 {
     private $metaBoxes;

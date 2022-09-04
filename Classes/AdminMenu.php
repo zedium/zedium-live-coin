@@ -2,6 +2,8 @@
 
 namespace Zedium\Classes;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Add admin menu and corresponding page to it
  */

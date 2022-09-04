@@ -2,6 +2,8 @@
 
 namespace Zedium\Classes;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  *This class is responsible for adding custom metabox at Coin custom post type
  * It wil render and save user entered data into custom `coin_info` table

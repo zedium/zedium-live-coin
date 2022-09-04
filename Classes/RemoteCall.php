@@ -2,6 +2,8 @@
 
 namespace Zedium\Classes;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * This class calls a remote API
  * It will be done through CURL request

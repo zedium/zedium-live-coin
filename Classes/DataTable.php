@@ -2,6 +2,8 @@
 
 namespace Zedium\Classes;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * This class is responsible for generate list of coins that called Datatable
  * In both home page dashboard and custom menu page

@@ -2,6 +2,9 @@
 
 namespace Zedium\Classes;
 
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * This class is responsible for render home dashboard widget
  */

@@ -1,6 +1,9 @@
 <?php
 
 namespace Zedium\Classes;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * This class is responsible for custom database table instruction
  * Such as create, update, delete,...
