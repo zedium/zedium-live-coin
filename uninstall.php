@@ -6,6 +6,11 @@ use Zedium\Classes\CustomDB;
  * It will drop table and purge the custom `coin_info` data
  */
 
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+    exit;
+}
+
+
 if( !file_exists(__DIR__ . '/vendor/autoload.php') )
     die('autoload.php not found');
 
