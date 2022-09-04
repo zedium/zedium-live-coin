@@ -13,6 +13,8 @@
     use Zedium\Classes\Cronjob;
     use Zedium\Classes\AdminMenu;
 
+    if ( ! defined( 'ABSPATH' ) ) exit;
+
     if( !file_exists(__DIR__ . '/vendor/autoload.php') )
         die('autoload.php not found');
 
